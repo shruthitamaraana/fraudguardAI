@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Logs | FraudGuard AI</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body id="results-view">
+    <nav>
+        <a href="/" class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> FraudGuard AI</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload.html">Data Ingestion</a></li>
+            <li><a href="/dashboard.html">Overview</a></li>
+            <li><a href="/analysis.html">Threat Analytics</a></li>
+            <li><a href="/results.html" class="active">Security Logs</a></li>
+            <li><a href="/about.html">Architecture</a></li>
+        </ul>
+    </nav>
+    <main>
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h1 style="font-size: 1.8rem; margin-bottom: 0.25rem;">Incident Response Logs</h1>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Raw telemetry of isolated endpoints flagged by the LSTM engine.</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.5rem 1rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Critical Flags</div>
+                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--danger-red);">142</div>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.5rem 1rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">IPs Blacklisted</div>
+                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--safe-green);">89</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+            <div class="filter-bar" style="margin-bottom: 0; flex: 1;">
+                <input type="text" id="search-ip" class="filter-input" placeholder="🔍 Search IP, User ID, or Hash...">
+                <select id="filter-campaign" class="filter-select">
+                    <option value="ALL">All Target Vectors</option>
+                    <option value="CMP_01">CMP_01 (Social)</option>
+                    <option value="CMP_02">CMP_02 (Search)</option>
+                </select>
+                <select class="filter-select">
+                    <option>Status: Blocked</option>
+                    <option>Status: Flagged</option>
+                    <option>Status: Allowed</option>
+                </select>
+            </div>
+            <button id="export-logs-btn" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Export CSV
+            </button>
+        </div>
+
+        <div class="table-wrapper" style="margin-bottom: 1rem;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source IP / Host</th>
+                        <th>Timestamp (UTC)</th>
+                        <th>Target Vector</th>
+                        <th>Threat Signature</th>
+                        <th style="width: 200px;">AI Confidence</th>
+                        <th>Action Taken</th>
+                        <th style="text-align: center;">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="results-table-body">
+                    <tr><td colspan="7" style="text-align:center; padding: 2rem;">Initializing secure data fetch...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; color: var(--text-muted); font-size: 0.9rem;">
+            <div>Showing 1 - 50 of 1,586 entries</div>
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="btn" style="padding: 0.25rem 0.75rem; background: transparent; border: 1px solid var(--border-light); color: var(--text-muted);">Prev</button>
+                <button class="btn" style="padding: 0.25rem 0.75rem; background: var(--bg-surface); border: 1px solid var(--accent-blue); color: var(--text-main);">1</button>
+                <button class="btn" style="padding: 0.25rem 0.75rem; background: transparent; border: 1px solid var(--border-light); color: var(--text-muted);">2</button>
+                <button class="btn" style="padding: 0.25rem 0.75rem; background: transparent; border: 1px solid var(--border-light); color: var(--text-muted);">3</button>
+                <span style="padding: 0.25rem;">...</span>
+                <button class="btn" style="padding: 0.25rem 0.75rem; background: transparent; border: 1px solid var(--border-light); color: var(--text-muted);">Next</button>
+            </div>
+        </div>
+        <div id="details-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem;">
+                    <div>
+                        <h2 style="margin: 0; color: var(--text-main);">Raw Forensics Data</h2>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">LSTM JSON Payload Extraction</p>
+                    </div>
+                    <button id="close-modal" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 2rem; line-height: 1;">&times;</button>
+                </div>
+                <pre id="modal-json" style="background: #020617; padding: 1.5rem; border-radius: 8px; color: var(--accent-cyan); font-family: monospace; font-size: 0.9rem; overflow-x: auto; border: 1px solid #1e293b;"></pre>
+            </div>
+        </div>
+
+    </main>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

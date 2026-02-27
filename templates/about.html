@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture | FraudGuard AI</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body id="architecture-view">
+    <nav>
+        <a href="/" class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> FraudGuard AI</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload.html">Data Ingestion</a></li>
+            <li><a href="/dashboard.html">Overview</a></li>
+            <li><a href="/analysis.html">Threat Analytics</a></li>
+            <li><a href="/results.html">Security Logs</a></li>
+            <li><a href="/about.html" class="active">Architecture</a></li>
+        </ul>
+    </nav>
+    <main class="fade-in">
+        
+        <div style="margin-bottom: 3rem; text-align: center; margin-top: 2rem;">
+            <div style="display: inline-block; padding: 0.25rem 1rem; background: rgba(6, 182, 212, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); border-radius: 999px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 1rem;">SYSTEM DOCUMENTATION</div>
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Neural Engine Architecture</h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Technical overview and data pipeline specifications of the Long Short-Term Memory (LSTM) heuristic framework.</p>
+        </div>
+
+        <h2 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+            Model Specifications
+        </h2>
+        <div class="arch-grid">
+            <div class="spec-box">
+                <div class="spec-label">Core Architecture</div>
+                <div class="spec-value">Keras LSTM Network</div>
+            </div>
+            <div class="spec-box" style="border-color: var(--brand-accent);">
+                <div class="spec-label">Input Tensor Shape</div>
+                <div class="spec-value">(Batch, Seq_Len, Features)</div>
+            </div>
+            <div class="spec-box" style="border-color: var(--safe-green);">
+                <div class="spec-label">Loss Function</div>
+                <div class="spec-value">Binary Crossentropy</div>
+            </div>
+            <div class="spec-box" style="border-color: var(--warning-yellow);">
+                <div class="spec-label">Optimization Alg</div>
+                <div class="spec-value">Adam (lr=0.001)</div>
+            </div>
+        </div>
+
+        <h2 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Data Pipeline Flow
+        </h2>
+        
+        <div class="carousel-container" style="margin-bottom: 3rem;">
+            <button id="carousel-prev" class="carousel-btn carousel-prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button id="carousel-next" class="carousel-btn carousel-next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            
+            <div id="carousel-track" class="carousel-track">
+                
+                <div class="carousel-slide">
+                    <div class="carousel-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg></div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">1. Data Ingestion</h3>
+                    <p style="color: var(--text-muted); max-width: 500px; line-height: 1.6;">Raw CSV telemetry containing `UserId`, `Campaign`, and `Timestamp` is securely parsed into the Flask backend enclave.</p>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="carousel-icon" style="color: var(--accent-cyan); border-color: rgba(6, 182, 212, 0.3); background: rgba(6, 182, 212, 0.1);"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">2. Sequence Normalization</h3>
+                    <p style="color: var(--text-muted); max-width: 500px; line-height: 1.6;">Data is grouped by IP Address and sorted chronologically. Sequences are padded to match the fixed temporal window required by the neural network.</p>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="carousel-icon" style="color: var(--danger-red); border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.1);"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">3. LSTM Inference</h3>
+                    
+                    <p style="color: var(--text-muted); max-width: 500px; line-height: 1.6; margin-top: 1rem;">The `.h5` model evaluates the tensor array. Memory gates identify micro-bursts and long-term click farming, assigning a distinct Confidence Score.</p>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="carousel-icon" style="color: var(--safe-green); border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.1);"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">4. Threat Mitigation</h3>
+                    <p style="color: var(--text-muted); max-width: 500px; line-height: 1.6;">Anomalous profiles are packaged into JSON payloads, dispatched to the frontend REST API, and displayed on the interactive Security Logs for immediate action.</p>
+                </div>
+
+            </div>
+            
+            <div id="carousel-nav" class="carousel-nav">
+                <div class="carousel-dot active"></div>
+                <div class="carousel-dot"></div>
+                <div class="carousel-dot"></div>
+                <div class="carousel-dot"></div>
+            </div>
+        </div>
+        <h2 style="font-size: 1.25rem; margin-top: 4rem; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--warning-yellow)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            Methodology & Comparative Analysis
+        </h2>
+        <p style="color: var(--text-muted); max-width: 800px; line-height: 1.7; margin-bottom: 2rem;">
+            To safeguard the financial integrity of the Pay-Per-Click (PPC) advertising model, our system relies on robust feature engineering extracted directly from raw clickstream data. We conducted rigorous comparative evaluations against industry-standard models to maximize detection efficacy.
+        </p>
+
+        <div class="two-col-layout" style="gap: 1.5rem; margin-bottom: 3rem;">
+            <div class="card" style="margin-bottom: 0; border-top: 3px solid var(--text-muted);">
+                <h3 style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 0.5rem;">Tree-Based Ensembles</h3>
+                <div style="color: var(--accent-cyan); font-family: monospace; font-size: 0.85rem; margin-bottom: 1rem;">Model: XGBoost</div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                    Utilized as our baseline comparative model. While highly effective at processing tabular click data and identifying discrete outlier features, standard ensemble methods lack the inherent temporal memory required to track sophisticated, slow-drip behavioral sequences over time.
+                </p>
+            </div>
+
+            <div class="card" style="margin-bottom: 0; border-top: 3px solid var(--brand-accent); background: linear-gradient(180deg, rgba(59,130,246,0.05) 0%, transparent 100%);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 0.5rem;">Sequential Deep Neural Networks</h3>
+                    <span class="badge badge-warning" style="background: rgba(16, 185, 129, 0.2); color: var(--safe-green); border-color: var(--safe-green);">Selected Engine</span>
+                </div>
+                <div style="color: var(--accent-cyan); font-family: monospace; font-size: 0.85rem; margin-bottom: 1rem;">Model: Recurrent Neural Networks (RNN / LSTM)</div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                    Our primary deployment architecture. By utilizing Long Short-Term Memory gates, the model successfully identifies complex, evolving fraud patterns by evaluating the contextual sequence of clicks, rather than isolated events.
+                </p>
+            </div>
+        </div>
+
+        <div class="card" style="background: #020617; border-color: #1e293b; text-align: center; padding: 3rem 2rem;">
+            <h3 style="color: var(--text-main); font-size: 1.25rem; margin-bottom: 0.5rem;">Performance Evaluation Focus</h3>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.6;">
+                System tuning prioritized the absolute maximization of two critical metrics to ensure a high-efficacy, deployable solution that protects ad campaigns without blocking legitimate users.
+            </p>
+            
+            <div style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;">
+                <div>
+                    <div style="font-size: 3rem; font-weight: 800; color: var(--accent-blue); line-height: 1;">Precision</div>
+                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; max-width: 200px;">Minimizing False Positives (Ensuring real humans aren't blocked)</div>
+                </div>
+                <div style="width: 1px; background: #1e293b;"></div>
+                <div>
+                    <div style="font-size: 3rem; font-weight: 800; color: var(--accent-cyan); line-height: 1;">Recall</div>
+                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; max-width: 200px;">Minimizing False Negatives (Ensuring no botnets slip through)</div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

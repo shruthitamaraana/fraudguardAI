@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Ingestion | FraudGuard AI</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> FraudGuard AI</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload.html" class="active">Data Ingestion</a></li>
+            <li><a href="/dashboard.html">Overview</a></li>
+            <li><a href="/analysis.html">Threat Analytics</a></li>
+            <li><a href="/results.html">Security Logs</a></li>
+            <li><a href="/about.html">Architecture</a></li>
+        </ul>
+    </nav>
+    <main class="fade-in">
+        <h1 style="margin-bottom: 0.5rem; font-size: 2rem;">Secure Ingestion Portal</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--safe-green)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            256-bit Encrypted In-Memory Processing
+        </p>
+        
+        <div class="two-col-layout">
+            <div class="card" style="margin-bottom: 0; display: flex; flex-direction: column;">
+                
+                <div id="drop-zone" class="upload-zone" style="border-color: rgba(59, 130, 246, 0.4); background: rgba(15, 23, 42, 0.6); flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <p style="font-weight: 600; font-size: 1.1rem; color: var(--text-main);">Drag & Drop Traffic Logs Here</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Accepts .CSV up to 50MB</p>
+                    <input type="file" id="csv-file" accept=".csv" style="display: none;">
+                </div>
+
+                <div id="file-details" style="display: none; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; padding: 1rem; margin-top: 1.5rem; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-main)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <div>
+                            <div id="file-name" style="font-weight: 600; color: var(--text-main);">dataset.csv</div>
+                            <div id="file-size" style="font-size: 0.85rem; color: var(--text-muted);">2.4 MB</div>
+                        </div>
+                    </div>
+                    <button id="start-scan-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Initiate Neural Scan</button>
+                </div>
+
+                <div id="terminal-output" style="display: none; background: #020617; border: 1px solid #1e293b; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; font-family: monospace; font-size: 0.85rem; color: var(--safe-green); height: 150px; overflow-y: hidden;">
+                    <div id="terminal-lines" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+                    <div style="margin-top: 1rem; width: 100%; height: 2px; background: #1e293b; overflow: hidden;"><div style="height: 100%; background: var(--safe-green); width: 100%; animation: shimmer 1s infinite linear;"></div></div>
+                </div>
+            </div>
+
+            <div class="sidebar-panel" style="display: flex; flex-direction: column; gap: 2rem;">
+                <div>
+                    <h3 style="color: var(--text-main); margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">Schema Requirements</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">The ingestion engine requires the following standard tensor format:</p>
+                    <table style="width: 100%; font-size: 0.8rem; background: #020617; border: 1px solid #1e293b; border-radius: 6px;">
+                        <tr style="border-bottom: 1px solid #1e293b; color: var(--text-muted);">
+                            <th style="padding: 0.5rem; background: transparent; border:none;">UserId</th>
+                            <th style="padding: 0.5rem; background: transparent; border:none;">Event</th>
+                            <th style="padding: 0.5rem; background: transparent; border:none;">Category</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; color: var(--accent-cyan);">192.168.x</td>
+                            <td style="padding: 0.5rem; color: var(--text-main);">Click</td>
+                            <td style="padding: 0.5rem; color: var(--text-main);">Social_Ad</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; color: var(--accent-cyan);">10.0.0.4</td>
+                            <td style="padding: 0.5rem; color: var(--text-main);">Click</td>
+                            <td style="padding: 0.5rem; color: var(--text-main);">Promo_A</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <h3 style="color: var(--text-main); margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">Data Privacy</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+                        FraudGuard AI operates on a <strong>Zero Retention Policy</strong>. Datasets are parsed directly into memory arrays, evaluated by the LSTM weights, and immediately flushed post-inference.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

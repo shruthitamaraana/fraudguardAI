@@ -42,7 +42,6 @@ six==1.16.0
 tensorboard==2.8.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
-tensorflow==2.8.0
 tensorflow-io-gcs-filesystem==0.25.0
 termcolor==1.1.0
 tf-estimator-nightly==2.8.0.dev2021122109
@@ -52,3 +51,9 @@ urllib3==1.26.9
 Werkzeug==2.1.2
 wrapt==1.14.1
 zipp==3.8.0
+flask
+gunicorn
+pandas
+numpy
+tensorflow-cpu==2.15.0
+scikit-learn

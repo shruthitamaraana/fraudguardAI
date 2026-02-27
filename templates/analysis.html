@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Analytics | FraudGuard AI</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="analysis-view">
+    <nav>
+        <a href="/" class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> FraudGuard AI</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload.html">Data Ingestion</a></li>
+            <li><a href="/dashboard.html">Overview</a></li>
+            <li><a href="/analysis.html" class="active">Threat Analytics</a></li>
+            <li><a href="/results.html">Security Logs</a></li>
+            <li><a href="/about.html">Architecture</a></li>
+        </ul>
+    </nav>
+    <main>
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h1 style="font-size: 1.8rem; margin-bottom: 0.25rem;">Behavioral Threat Analytics</h1>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">LSTM deep-dive across temporal vectors and campaign targets.</p>
+            </div>
+            <div class="filter-bar" style="margin-bottom: 0;">
+                <select class="filter-select" style="min-width: 150px;">
+                    <option>Last 24 Hours</option>
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                </select>
+                <button id="export-btn" class="btn" style="background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent-blue); color: var(--accent-cyan); display: flex; align-items: center; gap: 0.5rem; transition: 0.3s;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Export Forensics
+                </button>
+            </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+            <div class="card stat-card" style="padding: 1rem 1.5rem;">
+                <h3 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">LSTM Sequence Threshold</h3>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); font-family: monospace;">0.894</div>
+            </div>
+            <div class="card stat-card" style="padding: 1rem 1.5rem;">
+                <h3 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Peak Anomaly Deviation</h3>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--danger-red); font-family: monospace;">+312%</div>
+            </div>
+            <div class="card stat-card" style="padding: 1rem 1.5rem;">
+                <h3 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Model Confidence Median</h3>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--safe-green); font-family: monospace;">96.2%</div>
+            </div>
+            <div class="card stat-card" style="padding: 1rem 1.5rem;">
+                <h3 style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Est. Budget Saved</h3>
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan); font-family: monospace;">$4,280</div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <h2 style="margin: 0;">Temporal Anomaly Scope</h2>
+                <span class="badge badge-warning" style="background: rgba(245, 158, 11, 0.1);">Monitoring Spikes</span>
+            </div>
+            <div class="chart-container" style="height: 300px;">
+                <canvas id="timeSeriesChart" style="opacity: 1;"></canvas>
+            </div>
+        </div>
+
+        <div class="two-col-layout" style="grid-template-columns: 2fr 1fr; gap: 2rem;">
+            <div class="card" style="margin-bottom: 0;">
+                <h2>Threat Vector by Campaign</h2>
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="campaignChart" style="opacity: 1;"></canvas>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-bottom: 0;">
+                <h2 style="color: var(--accent-cyan);">Top Flagged Signatures</h2>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+                        <span style="color: var(--text-main);">Micro-Burst Clicking</span>
+                        <span style="color: var(--danger-red); font-family: monospace;">45%</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 45%; background: var(--danger-red); box-shadow: 0 0 8px var(--danger-red-glow);"></div></div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+                        <span style="color: var(--text-main);">IP Rotation Farm</span>
+                        <span style="color: var(--warning-yellow); font-family: monospace;">30%</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 30%; background: var(--warning-yellow); box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);"></div></div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+                        <span style="color: var(--text-main);">Headless Browser Bot</span>
+                        <span style="color: var(--accent-blue); font-family: monospace;">18%</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 18%; background: var(--accent-blue); box-shadow: 0 0 8px var(--accent-blue-glow);"></div></div>
+                </div>
+
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+                        <span style="color: var(--text-main);">Geo-Spoofing</span>
+                        <span style="color: var(--text-muted); font-family: monospace;">7%</span>
+                    </div>
+                    <div class="progress-bg"><div class="progress-fill" style="width: 7%; background: var(--text-muted);"></div></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
